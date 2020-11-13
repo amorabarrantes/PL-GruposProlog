@@ -1,0 +1,12 @@
+C:\Users\ExtremeTech\Desktop\TEC\4to Semestre\Lenguajes\ParadigmaLogico\Proyecto3\Proyecto3Lenguajes\Proyecto3Lenguajes\bin\Debug\Proyecto3Lenguajes.exe.config
+C:\Users\ExtremeTech\Desktop\TEC\4to Semestre\Lenguajes\ParadigmaLogico\Proyecto3\Proyecto3Lenguajes\Proyecto3Lenguajes\bin\Debug\Proyecto3Lenguajes.exe
+C:\Users\ExtremeTech\Desktop\TEC\4to Semestre\Lenguajes\ParadigmaLogico\Proyecto3\Proyecto3Lenguajes\Proyecto3Lenguajes\bin\Debug\Proyecto3Lenguajes.pdb
+C:\Users\ExtremeTech\Desktop\TEC\4to Semestre\Lenguajes\ParadigmaLogico\Proyecto3\Proyecto3Lenguajes\Proyecto3Lenguajes\obj\Debug\Proyecto3Lenguajes.csprojAssemblyReference.cache
+C:\Users\ExtremeTech\Desktop\TEC\4to Semestre\Lenguajes\ParadigmaLogico\Proyecto3\Proyecto3Lenguajes\Proyecto3Lenguajes\obj\Debug\Proyecto3Lenguajes.Form1.resources
+C:\Users\ExtremeTech\Desktop\TEC\4to Semestre\Lenguajes\ParadigmaLogico\Proyecto3\Proyecto3Lenguajes\Proyecto3Lenguajes\obj\Debug\Proyecto3Lenguajes.Properties.Resources.resources
+C:\Users\ExtremeTech\Desktop\TEC\4to Semestre\Lenguajes\ParadigmaLogico\Proyecto3\Proyecto3Lenguajes\Proyecto3Lenguajes\obj\Debug\Proyecto3Lenguajes.csproj.GenerateResource.cache
+C:\Users\ExtremeTech\Desktop\TEC\4to Semestre\Lenguajes\ParadigmaLogico\Proyecto3\Proyecto3Lenguajes\Proyecto3Lenguajes\obj\Debug\Proyecto3Lenguajes.csproj.CoreCompileInputs.cache
+C:\Users\ExtremeTech\Desktop\TEC\4to Semestre\Lenguajes\ParadigmaLogico\Proyecto3\Proyecto3Lenguajes\Proyecto3Lenguajes\obj\Debug\Proyecto3Lenguajes.exe
+C:\Users\ExtremeTech\Desktop\TEC\4to Semestre\Lenguajes\ParadigmaLogico\Proyecto3\Proyecto3Lenguajes\Proyecto3Lenguajes\obj\Debug\Proyecto3Lenguajes.pdb
+C:\Users\ExtremeTech\Desktop\TEC\4to Semestre\Lenguajes\ParadigmaLogico\Proyecto3\Proyecto3Lenguajes\Proyecto3Lenguajes\obj\Debug\Proyecto3Lenguajes.csproj.CopyComplete
+C:\Users\ExtremeTech\Desktop\TEC\4to Semestre\Lenguajes\ParadigmaLogico\Proyecto3\Proyecto3Lenguajes\Proyecto3Lenguajes\bin\Debug\SwiPlCs.xml
