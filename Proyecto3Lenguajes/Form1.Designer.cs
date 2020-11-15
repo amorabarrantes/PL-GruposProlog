@@ -28,71 +28,118 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.components = new System.ComponentModel.Container();
+            this.botonGenerarTabla = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
+            this.sizeN = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.consultarBoton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // listBox1
+            // botonGenerarTabla
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(116, 112);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(105, 43);
-            this.listBox1.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(89, 66);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(105, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.botonGenerarTabla.Location = new System.Drawing.Point(189, 23);
+            this.botonGenerarTabla.Name = "botonGenerarTabla";
+            this.botonGenerarTabla.Size = new System.Drawing.Size(124, 23);
+            this.botonGenerarTabla.TabIndex = 0;
+            this.botonGenerarTabla.Text = "Generar Tabla";
+            this.botonGenerarTabla.UseVisualStyleBackColor = true;
+            this.botonGenerarTabla.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 178);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 121);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(776, 260);
+            this.dataGridView1.Size = new System.Drawing.Size(776, 317);
             this.dataGridView1.TabIndex = 2;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(317, 57);
+            this.button2.Location = new System.Drawing.Point(12, 63);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(124, 23);
             this.button2.TabIndex = 3;
-            this.button2.Text = "button2";
+            this.button2.Text = "Llenado aleatorio";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // sizeN
+            // 
+            this.sizeN.Location = new System.Drawing.Point(12, 23);
+            this.sizeN.Name = "sizeN";
+            this.sizeN.Size = new System.Drawing.Size(148, 20);
+            this.sizeN.TabIndex = 4;
+            this.sizeN.TextChanged += new System.EventHandler(this.sizeN_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(147, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Ingrese el tamaño de la matriz";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(152, 63);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(203, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Guardar Datos En La Base de Datos";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // consultarBoton
+            // 
+            this.consultarBoton.Location = new System.Drawing.Point(12, 92);
+            this.consultarBoton.Name = "consultarBoton";
+            this.consultarBoton.Size = new System.Drawing.Size(124, 23);
+            this.consultarBoton.TabIndex = 8;
+            this.consultarBoton.Text = "Consultar";
+            this.consultarBoton.UseVisualStyleBackColor = true;
+            this.consultarBoton.Click += new System.EventHandler(this.consultarBoton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.consultarBoton);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.sizeN);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.botonGenerarTabla);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button botonGenerarTabla;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox sizeN;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button consultarBoton;
     }
 }
 
