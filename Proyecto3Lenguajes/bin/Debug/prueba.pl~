@@ -1,12 +1,18 @@
-start :- dynamic(conexion/2),
-         consult('BaseDeDatos.pl').
+verificarNumero([X,Y]):- punto(X,Y),!.
 
-comprobar(X,Y) :-
-	 dynamic(conexion/2),
-         consult('BaseDeDatos.pl'),
-	 conexion(X,Y),conocer(1,2).
+vecinos([X, Y],[X2,Y2]) :-
+	punto(X,Y), punto(X2,Y2),
+	A is X2-1, B is X2+1, C is Y2 -1, D is Y2+1,
+	((X = X2, Y = D);(X = X2, Y = C);(Y = Y2, X = B);(Y = Y2, X = A)).
 
-conocimiento(1,2).
+grupo(X,Y,[],_):- vecinos(X,Y).
+grupo(X,Y,[Alguno|Lista], Visitados):- vecinos(X, Alguno),
+	not(member(Alguno, Visitados)),
+	grupo(Alguno, Y, Lista, [Alguno|Visitados]).
 
-conocer(X,Y) :- conocimiento(X,Y).
+final(Comprobacion,A,B) :- consult('baseDeDatos.pl'),verificarNumero(Comprobacion),findall(B, grupo(A,B,_,[]),Lista), sort(Lista,X).
+
+
+
+
 

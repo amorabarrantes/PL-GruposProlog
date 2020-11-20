@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using SbsSW.SwiPlCs;
 
@@ -15,7 +19,14 @@ namespace Proyecto3Lenguajes
 {
     public partial class Form1 : Form
     {
+        
+        
         DataTable ss = new DataTable();
+        List<List<int>> listaGlobal = new List<List<int>>();
+
+
+
+
 
         public Form1()
         {
@@ -134,24 +145,33 @@ namespace Proyecto3Lenguajes
             {
                 for (int j = 0; j < nSize; j++)
                 {
-                    if (DBNull.Value.Equals(ss.Rows[i][j]) || ss.Rows[i][j] == " ")
+                    
+                    if (DBNull.Value.Equals(ss.Rows[j][i]) || ss.Rows[j][i] == " ")
                     {
+                        
                     }
                     else
                     {
                         //String d = (String)ss.Rows[i][j];
-                        String conexion = "conexion("+i.ToString()+ "," + j.ToString()+").";
+                        String conexion = "punto(" + i.ToString() + "," + j.ToString() + ").";
                         guardarBaseDeDatos(conexion);
                     }
                 }
-            }
+            } 
+
+
         }
 
         private void guardarBaseDeDatos(string conexion)
         {
             string docPath = "C:\\Users\\ExtremeTech\\Desktop\\TEC\\4to Semestre\\Lenguajes\\ParadigmaLogico\\Proyecto3\\Proyecto3Lenguajes\\Proyecto3Lenguajes\\bin\\Debug";
-
             using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "baseDeDatos.pl"),true))
+            {
+                outputFile.WriteLine(conexion);
+            }
+
+            string docPath2 = "C:\\Users\\ExtremeTech\\Documents\\Prolog";
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath2, "baseDeDatos.pl"), true))
             {
                 outputFile.WriteLine(conexion);
             }
@@ -160,23 +180,162 @@ namespace Proyecto3Lenguajes
         private void guardarBaseDeDatosDinamico()
         {
             File.Delete ("C:\\Users\\ExtremeTech\\Desktop\\TEC\\4to Semestre\\Lenguajes\\ParadigmaLogico\\Proyecto3\\Proyecto3Lenguajes\\Proyecto3Lenguajes\\bin\\Debug\\baseDeDatos.pl");
-
+            File.Delete("C:\\Users\\ExtremeTech\\Documents\\Prolog\\baseDeDatos.pl");
             string docPath = "C:\\Users\\ExtremeTech\\Desktop\\TEC\\4to Semestre\\Lenguajes\\ParadigmaLogico\\Proyecto3\\Proyecto3Lenguajes\\Proyecto3Lenguajes\\bin\\Debug";
-
+            
             using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "baseDeDatos.pl"),true))
             {
-                outputFile.WriteLine(":- dynamic conexion/2.");
+                outputFile.WriteLine(":- dynamic punto/2.");
+            }
+
+            string docPath2 = "C:\\Users\\ExtremeTech\\Documents\\Prolog";
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath2, "baseDeDatos.pl"), true))
+            {
+                outputFile.WriteLine(":- dynamic punto/2.");
             }
         }
 
         private void consultarBoton_Click(object sender, EventArgs e)
         {
-            //Console.WriteLine(resultado.NextSolution().ToString());
-            PlQuery resultado = new PlQuery("comprobar(0,2).");
-            if (resultado.NextSolution() == true)
-                Console.WriteLine("fue true");
+            listaGlobal.Clear();
+            String resultado = "";
+
+            PlQuery query = new PlQuery("final([1,0],[1,0],X)."); // se hace la consulta
+
+            foreach (PlQueryVariables z in query.SolutionVariables)
+            {
+                resultado = z["X"].ToString();
+            }
+            query.NextSolution();
+            query.Dispose();
+
+            Console.WriteLine("El retorno  fue ---> " + resultado);
+            if(resultado != "")
+            {
+                string nuevo = resultado.Remove(0, 1);
+                string final = nuevo.Remove(nuevo.Length - 1);
+
+                Console.WriteLine("El retorno final fue --->" + final);
+
+                for (int i = 0; i < final.Length; i++)
+                {
+                    if (final[i].Equals(','))
+                    {
+                        if (char.IsDigit(final[i - 1]) && char.IsDigit(final[i + 1]))
+                        {
+                            List<int> subListaAAgregar = new List<int>();
+                            int x = (int)Char.GetNumericValue(final[i - 1]);
+                            int y = (int)Char.GetNumericValue(final[i + 1]);
+                            subListaAAgregar.Add(x);
+                            subListaAAgregar.Add(y);
+                            listaGlobal.Add(subListaAAgregar);
+                        }
+                    }
+                }
+
+                for (int i2 = 0; i2 < listaGlobal.Count; i2++)
+                {
+                    Console.WriteLine("");
+                    for (int j2 = 0; j2 < listaGlobal[i2].Count; j2++)
+                    {
+                        Console.Write(listaGlobal[i2][j2]);
+                    }
+                }
+                Console.WriteLine("");
+            }
             else
-                Console.WriteLine("fue false");
+            {
+                Console.WriteLine("no existe ese punto");
+            }
+            
+
+
+
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            /*
+            
+            Con estas lineas se crea las sublistas para la lista de listas.
+            
+            */
+            List<List<int>> ListaDeListas = new List<List<int>>();
+            List<int> sublista1 = new List<int>();
+            List<int> sublista2 = new List<int>();
+            List<int> sublista3 = new List<int>();
+            List<int> sublista4 = new List<int>();
+
+            sublista1.Add(1);
+            sublista1.Add(2);
+            sublista1.Add(3);
+            sublista1.Add(4);
+
+            sublista2.Add(1);
+            sublista2.Add(2);
+            sublista2.Add(3);
+            sublista2.Add(4);
+
+            sublista3.Add(1);
+            sublista3.Add(2);
+            sublista3.Add(3);
+            sublista3.Add(4);
+
+            sublista4.Add(1);
+            sublista4.Add(2);
+            sublista4.Add(3);
+            sublista4.Add(4);
+
+            ListaDeListas.Add(sublista1);
+            ListaDeListas.Add(sublista2);
+            ListaDeListas.Add(sublista3);
+            ListaDeListas.Add(sublista4);
+
+
+
+            /*
+            
+            Con estas lineas, se remueven las sublistas que tengan datos repetidos.
+
+            */
+
+
+            for (int i = 0; i<ListaDeListas.Count; i++)
+            {
+                for (int j = 0; j < ListaDeListas.Count; j++)
+                {
+                    if (ListaDeListas[i].SequenceEqual(ListaDeListas[j]))
+                    {
+                        Console.WriteLine("listas iguales, procedo a eliminar 1");
+                        ListaDeListas.RemoveAt(j);
+                    }
+                }
+            }
+
+
+            /*
+             
+            Con estas lineas se imprime las sublistas. 
+             
+            */
+            for (int i = 0; i < ListaDeListas.Count; i++)
+            {
+                for (int j = 0; j < ListaDeListas[i].Count; j++)
+                {
+                    Console.WriteLine(ListaDeListas[i][j]);
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < listaGlobal.Count; i++)
+            {
+                dataGridView1.Rows[listaGlobal[i][1]].Cells[listaGlobal[i][0]].Style.BackColor = Color.Red;
+            }
+
+            MessageBox.Show("Este grupo contenia: " + listaGlobal.Count + " celdas, se han pintado de rojo", "Informacion adicional", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }
 }
