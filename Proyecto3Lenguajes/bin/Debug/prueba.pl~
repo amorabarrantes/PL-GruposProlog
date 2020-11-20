@@ -10,7 +10,7 @@ grupo(X,Y,[Alguno|Lista], Visitados):- vecinos(X, Alguno),
 	not(member(Alguno, Visitados)),
 	grupo(Alguno, Y, Lista, [Alguno|Visitados]).
 
-final(Comprobacion,A,B) :- consult('baseDeDatos.pl'),verificarNumero(Comprobacion),findall(B, grupo(A,B,_,[]),Lista), sort(Lista,X).
+final(Comprobacion,A,B) :- consult('baseDeDatos.pl'),verificarNumero(Comprobacion),findall(B, grupo(A,B,_,[]),Lista), sort(Lista,B).
 
 
 

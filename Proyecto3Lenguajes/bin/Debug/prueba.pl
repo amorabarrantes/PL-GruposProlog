@@ -11,8 +11,3 @@ grupo(X,Y,[Alguno|Lista], Visitados):- vecinos(X, Alguno),
 	grupo(Alguno, Y, Lista, [Alguno|Visitados]).
 
 final(Comprobacion,A,B) :- consult('baseDeDatos.pl'),verificarNumero(Comprobacion),findall(B, grupo(A,B,_,[]),Lista), sort(Lista,B).
-
-
-
-
-
