@@ -22,7 +22,9 @@ namespace Proyecto3Lenguajes
         
         
         DataTable ss = new DataTable();
-        List<List<int>> listaGlobal = new List<List<int>>();
+
+        //List<List<int>> listaTemporal = new List<List<int>>();
+        List<List<List<int>>> listaGlobal = new List<List<List<int>>>();
 
 
 
@@ -198,9 +200,156 @@ namespace Proyecto3Lenguajes
         private void consultarBoton_Click(object sender, EventArgs e)
         {
             listaGlobal.Clear();
-            String resultado = "";
+            int nSize = int.Parse(sizeN.Text);
+            for (int iMatriz = 0; iMatriz < nSize; iMatriz++)
+            {
+                //AQUI EN ESTE FOR SE OBTIENEN TODOS LOS PARES ORDENADOS DE LA MATRIZ.
+                for (int jMatriz = 0; jMatriz < nSize; jMatriz++)
+                {
+                    String resultado = funcionConsulta(iMatriz.ToString(),jMatriz.ToString());
 
-            PlQuery query = new PlQuery("final([1,0],[1,0],X)."); // se hace la consulta
+                    //Console.WriteLine(resultado);
+                    
+                    if (resultado != "" && resultado != "[]")
+                    {
+                        string nuevo = resultado.Remove(0, 1);
+                        string final = nuevo.Remove(nuevo.Length - 1);
+
+                        //Console.WriteLine("El retorno final fue --->" + final);
+
+                        List<List<int>> listaTemporal = new List<List<int>>();
+
+                        for (int i = 0; i < final.Length; i++)
+                        {
+                            if (final[i].Equals(','))
+                            {
+                                if (char.IsDigit(final[i - 1]) && char.IsDigit(final[i + 1]))
+                                {
+                                    List<int> subListaAAgregar = new List<int>();
+                                    int x = (int)Char.GetNumericValue(final[i - 1]);
+                                    int y = (int)Char.GetNumericValue(final[i + 1]);
+                                    subListaAAgregar.Add(x);
+                                    subListaAAgregar.Add(y);
+                                    listaTemporal.Add(subListaAAgregar);
+                                }
+                            }
+                        }
+
+                        if (!listaGlobal.Contains(listaTemporal))
+                        {
+                            Console.WriteLine("entra al contains");
+                            listaGlobal.Add(listaTemporal);
+                        }
+                        
+                        
+
+                        /*
+                        for (int i2 = 0; i2 < listaGlobal.Count; i2++)
+                        {
+                            Console.WriteLine("Este es el grupo -> " + i2);
+                            for (int j2 = 0; j2 < listaGlobal[i2].Count; j2++)
+                            {
+                                Console.WriteLine("");
+                                for (int q2 = 0; q2 < listaGlobal[i2][j2].Count; q2++)
+                                {
+                                    Console.Write(listaGlobal[i2][j2][q2]);
+                                }
+                            }
+                        }
+                        */
+
+                        //Console.WriteLine("");
+                    }
+                    else if (resultado == "[]")
+                    {
+                        Console.WriteLine("entro");
+                        List<List<int>> listaTemporal = new List<List<int>>();
+                        List<int> subListaAAgregar = new List<int>();
+
+                        subListaAAgregar.Add(iMatriz);
+                        subListaAAgregar.Add(jMatriz);
+
+                        listaTemporal.Add(subListaAAgregar);
+
+                        if (!listaGlobal.Contains(listaTemporal))
+                        {
+                            Console.WriteLine("entra al contains2");
+                            listaGlobal.Add(listaTemporal);
+                        }
+
+                    }
+                    else
+                    {
+                        //Console.WriteLine("no existe el punto");
+                    }
+                }
+            
+            }
+
+            /*
+            for (int i2 = 0; i2 < listaGlobal.Count; i2++)
+            {
+                Console.WriteLine("Este es el grupo -> " + i2);
+                for (int j2 = 0; j2 < listaGlobal[i2].Count; j2++)
+                {
+                    Console.WriteLine("");
+                    for (int q2 = 0; q2 < listaGlobal[i2][j2].Count; q2++)
+                    {
+                        Console.Write(listaGlobal[i2][j2][q2]);
+                    }
+                }
+            }
+            */
+
+            /*
+            for (int q = 0; q < listaGlobal.Count; q++)
+            {
+                for (int j = 0; j < listaGlobal.Count; j++)
+                {
+                    if (listaGlobal[q].SequenceEqual(listaGlobal[j]))
+                    {
+                        Console.WriteLine("entroooo");
+                        listaGlobal.RemoveAt(j);
+                    }
+                }
+            }
+            
+            */
+
+
+
+
+
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Random random = new Random();
+            for (int i = 0; i < listaGlobal.Count; i++)
+            {
+                int r = random.Next(0, 256);
+                int g = random.Next(0, 256);
+                int b = random.Next(0, 256);
+
+                for (int j = 0; j < listaGlobal[i].Count; j++)
+                {
+                    dataGridView1.Rows[listaGlobal[i][j][1]].Cells[listaGlobal[i][j][0]].Style.BackColor = System.Drawing.Color.FromArgb(r, g, b);
+                }
+                    
+            }
+
+            //MessageBox.Show("Este grupo contenia: " + listaGlobal[0].Count + " celdas, se han pintado de rojo", "Informacion adicional", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        private String funcionConsulta(string x, string y)
+        {
+            string consulta = "final([" + x + "," + y + "],[" + x + "," + y + "],X).";
+
+            //Console.WriteLine(consulta);
+
+            PlQuery query = new PlQuery(consulta); // se hace la consulta
+            String resultado = "";
 
             foreach (PlQueryVariables z in query.SolutionVariables)
             {
@@ -209,133 +358,15 @@ namespace Proyecto3Lenguajes
             query.NextSolution();
             query.Dispose();
 
-            Console.WriteLine("El retorno  fue ---> " + resultado);
-            if(resultado != "")
-            {
-                string nuevo = resultado.Remove(0, 1);
-                string final = nuevo.Remove(nuevo.Length - 1);
-
-                Console.WriteLine("El retorno final fue --->" + final);
-
-                for (int i = 0; i < final.Length; i++)
-                {
-                    if (final[i].Equals(','))
-                    {
-                        if (char.IsDigit(final[i - 1]) && char.IsDigit(final[i + 1]))
-                        {
-                            List<int> subListaAAgregar = new List<int>();
-                            int x = (int)Char.GetNumericValue(final[i - 1]);
-                            int y = (int)Char.GetNumericValue(final[i + 1]);
-                            subListaAAgregar.Add(x);
-                            subListaAAgregar.Add(y);
-                            listaGlobal.Add(subListaAAgregar);
-                        }
-                    }
-                }
-
-                for (int i2 = 0; i2 < listaGlobal.Count; i2++)
-                {
-                    Console.WriteLine("");
-                    for (int j2 = 0; j2 < listaGlobal[i2].Count; j2++)
-                    {
-                        Console.Write(listaGlobal[i2][j2]);
-                    }
-                }
-                Console.WriteLine("");
-            }
-            else
-            {
-                Console.WriteLine("no existe ese punto");
-            }
-            
-
-
-
-
+            return resultado;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            /*
-            
-            Con estas lineas se crea las sublistas para la lista de listas.
-            
-            */
-            List<List<int>> ListaDeListas = new List<List<int>>();
-            List<int> sublista1 = new List<int>();
-            List<int> sublista2 = new List<int>();
-            List<int> sublista3 = new List<int>();
-            List<int> sublista4 = new List<int>();
+            Console.WriteLine(listaGlobal.Count);
+            Console.WriteLine(listaGlobal[0].Count);
+            Console.WriteLine(listaGlobal[0].Count);
 
-            sublista1.Add(1);
-            sublista1.Add(2);
-            sublista1.Add(3);
-            sublista1.Add(4);
-
-            sublista2.Add(1);
-            sublista2.Add(2);
-            sublista2.Add(3);
-            sublista2.Add(4);
-
-            sublista3.Add(1);
-            sublista3.Add(2);
-            sublista3.Add(3);
-            sublista3.Add(4);
-
-            sublista4.Add(1);
-            sublista4.Add(2);
-            sublista4.Add(3);
-            sublista4.Add(4);
-
-            ListaDeListas.Add(sublista1);
-            ListaDeListas.Add(sublista2);
-            ListaDeListas.Add(sublista3);
-            ListaDeListas.Add(sublista4);
-
-
-
-            /*
-            
-            Con estas lineas, se remueven las sublistas que tengan datos repetidos.
-
-            */
-
-
-            for (int i = 0; i<ListaDeListas.Count; i++)
-            {
-                for (int j = 0; j < ListaDeListas.Count; j++)
-                {
-                    if (ListaDeListas[i].SequenceEqual(ListaDeListas[j]))
-                    {
-                        Console.WriteLine("listas iguales, procedo a eliminar 1");
-                        ListaDeListas.RemoveAt(j);
-                    }
-                }
-            }
-
-
-            /*
-             
-            Con estas lineas se imprime las sublistas. 
-             
-            */
-            for (int i = 0; i < ListaDeListas.Count; i++)
-            {
-                for (int j = 0; j < ListaDeListas[i].Count; j++)
-                {
-                    Console.WriteLine(ListaDeListas[i][j]);
-                }
-            }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < listaGlobal.Count; i++)
-            {
-                dataGridView1.Rows[listaGlobal[i][1]].Cells[listaGlobal[i][0]].Style.BackColor = Color.Red;
-            }
-
-            MessageBox.Show("Este grupo contenia: " + listaGlobal.Count + " celdas, se han pintado de rojo", "Informacion adicional", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }
 }
