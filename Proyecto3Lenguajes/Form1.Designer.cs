@@ -39,6 +39,7 @@
             this.consultarBoton = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -124,19 +125,30 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(403, 63);
+            this.button3.Location = new System.Drawing.Point(361, 64);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(109, 23);
+            this.button3.Size = new System.Drawing.Size(176, 23);
             this.button3.TabIndex = 11;
-            this.button3.Text = "LEN LISTA";
+            this.button3.Text = "¿Cuantos grupos hay?";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(361, 93);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(176, 23);
+            this.button5.TabIndex = 12;
+            this.button5.Text = "PintarConClick/LlenarConClick";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1083, 627);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.consultarBoton);
@@ -166,6 +178,7 @@
         private System.Windows.Forms.Button consultarBoton;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button5;
     }
 }
 

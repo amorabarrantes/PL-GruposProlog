@@ -28,7 +28,7 @@ namespace Proyecto3Lenguajes
 
         List<String> listaComprobacion = new List<string>();
 
-
+        Boolean banderaClick = false;
 
 
 
@@ -54,9 +54,12 @@ namespace Proyecto3Lenguajes
          
         */
         private void button1_Click(object sender, EventArgs e)
-        { 
+        {
+            ss.Clear();
             ss.Columns.Clear();
             ss.Rows.Clear();
+            dataGridView1.CellClick -= clickDataTable;
+
 
             int nSize = int.Parse(sizeN.Text);
             if(nSize <= 10)
@@ -143,77 +146,96 @@ namespace Proyecto3Lenguajes
         */
         private void clickDataTable(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            if (cell.Value.ToString().Contains("x"))
+            if(banderaClick == true)
             {
-                string resultado = funcionConsulta(e.ColumnIndex.ToString(), e.RowIndex.ToString());
-                Console.WriteLine(resultado);
-
-                if (resultado != "" && resultado != "[]")
+                DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (cell.Value == "x")
                 {
-                    string nuevo = resultado.Remove(0, 1);
-                    string final = nuevo.Remove(nuevo.Length - 1);
-                    List<List<int>> listaTemporal = new List<List<int>>();
-
-                    for (int i = 0; i < final.Length; i++)
-                    {
-                        if (final[i].Equals(','))
-                        {
-                            if (char.IsDigit(final[i - 1]) && char.IsDigit(final[i + 1]))
-                            {
-                                List<int> subListaAAgregar = new List<int>();
-                                int x = (int)Char.GetNumericValue(final[i - 1]);
-                                int y = (int)Char.GetNumericValue(final[i + 1]);
-                                subListaAAgregar.Add(x);
-                                subListaAAgregar.Add(y);
-                                listaTemporal.Add(subListaAAgregar);
-                            }
-                        }
-                    }
-
-                    Random random = new Random();
-                    int r = random.Next(0, 256);
-                    int g = random.Next(0, 256);
-                    int b = random.Next(0, 256);
-                    for (int i3 = 0; i3 < listaTemporal.Count; i3++)
-                    {
-                        dataGridView1.Rows[listaTemporal[i3][1]].Cells[listaTemporal[i3][0]].Style.BackColor = System.Drawing.Color.FromArgb(r, g, b);
-                    }
-
-
+                    cell.Value = " ";
                 }
-                else if (resultado == "[]")
+                else
                 {
-                    
-
-                    List<List<int>> listaTemporal = new List<List<int>>();
-                    List<int> subListaAAgregar = new List<int>();
-
-                    subListaAAgregar.Add(e.ColumnIndex);
-                    subListaAAgregar.Add(e.RowIndex);
-
-                    listaTemporal.Add(subListaAAgregar);
-
-                    Random random = new Random();
-                    int r = random.Next(0, 256);
-                    int g = random.Next(0, 256);
-                    int b = random.Next(0, 256);
-                    for (int i3 = 0; i3 < listaTemporal.Count; i3++)
-                    {
-                        dataGridView1.Rows[listaTemporal[i3][1]].Cells[listaTemporal[i3][0]].Style.BackColor = System.Drawing.Color.FromArgb(r, g, b);
-                    }
-
-
-
+                    cell.Value = "x";
                 }
-
-
             }
             else
             {
-                MessageBox.Show("Esa celda no tiene un grupo", "Precaucion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (cell.Value.ToString().Contains("x"))
+                {
+                    string resultado = funcionConsulta(e.ColumnIndex.ToString(), e.RowIndex.ToString());
+                    Console.WriteLine(resultado);
+
+                    if (resultado != "" && resultado != "[]")
+                    {
+                        string nuevo = resultado.Remove(0, 1);
+                        string final = nuevo.Remove(nuevo.Length - 1);
+                        List<List<int>> listaTemporal = new List<List<int>>();
+
+                        for (int i = 0; i < final.Length; i++)
+                        {
+                            if (final[i].Equals(','))
+                            {
+                                if (char.IsDigit(final[i - 1]) && char.IsDigit(final[i + 1]))
+                                {
+                                    List<int> subListaAAgregar = new List<int>();
+                                    int x = (int)Char.GetNumericValue(final[i - 1]);
+                                    int y = (int)Char.GetNumericValue(final[i + 1]);
+                                    subListaAAgregar.Add(x);
+                                    subListaAAgregar.Add(y);
+                                    listaTemporal.Add(subListaAAgregar);
+                                }
+                            }
+                        }
+
+                        Random random = new Random();
+                        int r = random.Next(0, 256);
+                        int g = random.Next(0, 256);
+                        int b = random.Next(0, 256);
+                        for (int i3 = 0; i3 < listaTemporal.Count; i3++)
+                        {
+                            dataGridView1.Rows[listaTemporal[i3][1]].Cells[listaTemporal[i3][0]].Style.BackColor = System.Drawing.Color.FromArgb(r, g, b);
+                        }
+
+
+                        MessageBox.Show("El grupo seleccionado consta de: " + listaTemporal.Count + " elementos.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        listaTemporal.Clear();
+                    }
+                    else if (resultado == "[]")
+                    {
+
+
+                        List<List<int>> listaTemporal = new List<List<int>>();
+                        List<int> subListaAAgregar = new List<int>();
+
+                        subListaAAgregar.Add(e.ColumnIndex);
+                        subListaAAgregar.Add(e.RowIndex);
+
+                        listaTemporal.Add(subListaAAgregar);
+
+                        Random random = new Random();
+                        int r = random.Next(0, 256);
+                        int g = random.Next(0, 256);
+                        int b = random.Next(0, 256);
+                        for (int i3 = 0; i3 < listaTemporal.Count; i3++)
+                        {
+                            dataGridView1.Rows[listaTemporal[i3][1]].Cells[listaTemporal[i3][0]].Style.BackColor = System.Drawing.Color.FromArgb(r, g, b);
+                        }
+
+                        MessageBox.Show("El grupo seleccionado consta de: " + listaTemporal.Count + " elementos.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        listaTemporal.Clear();
+
+                    }
+
+
+                }
+                else
+                {
+                    MessageBox.Show("Esa celda no tiene un grupo", "Precaucion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
         }
+            
 
 
         /*
@@ -395,9 +417,42 @@ namespace Proyecto3Lenguajes
 
         private void button3_Click(object sender, EventArgs e)
         {
+            List<int> sizeList = new List<int>();
+
+            for (int i = 0;i<listaGlobal.Count; i++)
+            {
+                int numeroPorAgregar = listaGlobal[i].Count;
+                sizeList.Add(numeroPorAgregar);
+            }
+
+            sizeList.Sort();
+
+
+            string sizeGrupos = "";
+            for (int i2 = 0; i2 < sizeList.Count; i2++)
+            {
+                sizeGrupos = sizeGrupos + sizeList[i2] + ",";
+            }
+
+            sizeGrupos.Remove(sizeGrupos.Length - 1);
+
             int variable = listaGlobal.Count;
-            MessageBox.Show("Los grupos presentes en la matriz son -> : "+ variable, "Precaucion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
             
+            MessageBox.Show("Los grupos presentes en la matriz son -> "+ variable + ", Y sus tamaños respectivamente son -> " + sizeGrupos, "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
+        }
+        
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (banderaClick == true)
+            {
+                banderaClick = false;
+            }
+            else
+            {
+                banderaClick = true;
+            }
         }
     }
 }
