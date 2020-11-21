@@ -87,12 +87,12 @@ namespace Proyecto3Lenguajes
 
                 foreach (DataGridViewColumn column in dataGridView1.Columns)
                 {
-                    column.Width = 40;
+                    column.Width = 48;
                 }
 
                 foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
-                    row.Height = 40;
+                    row.Height = 48;
                 }
             }
             else
@@ -110,9 +110,6 @@ namespace Proyecto3Lenguajes
         */
         private void button2_Click(object sender, EventArgs e)
         {
-            //dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Green;
-            //dataGridView1.Rows[1].DefaultCellStyle.BackColor = Color.Green;
-            //dataGridView1.Rows[2].DefaultCellStyle.BackColor = Color.Red;
             int nSize = int.Parse(sizeN.Text);
 
             for (int i = 0; i < nSize; i++)
@@ -375,8 +372,6 @@ namespace Proyecto3Lenguajes
             
         }
 
-        
-
         private void button4_Click(object sender, EventArgs e)
         {
             Random random = new Random();
@@ -427,19 +422,19 @@ namespace Proyecto3Lenguajes
 
             sizeList.Sort();
 
-
-            string sizeGrupos = "";
-            for (int i2 = 0; i2 < sizeList.Count; i2++)
-            {
-                sizeGrupos = sizeGrupos + sizeList[i2] + ",";
-            }
-
-            sizeGrupos.Remove(sizeGrupos.Length - 1);
-
             int variable = listaGlobal.Count;
+            string prueba = "";
 
-            
-            MessageBox.Show("Los grupos presentes en la matriz son -> "+ variable + ", Y sus tamaños respectivamente son -> " + sizeGrupos, "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var g = sizeList.GroupBy(i => i);
+            foreach (var grp in g)
+            {
+                int valor1 = grp.Key;
+                int valor2 = grp.Count();
+                prueba = prueba + "\nDe tamaño: " + valor1 + ", existen: " + valor2 + " grupos,";
+            }
+            prueba.Remove(prueba.Length - 1);
+
+            MessageBox.Show("Los grupos presentes en la matriz son -> "+ variable + ",\nY sus tamaños respectivamente son: " + prueba, "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             
         }
         
@@ -454,5 +449,6 @@ namespace Proyecto3Lenguajes
                 banderaClick = true;
             }
         }
+
     }
 }
