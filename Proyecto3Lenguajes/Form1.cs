@@ -26,6 +26,8 @@ namespace Proyecto3Lenguajes
         //List<List<int>> listaTemporal = new List<List<int>>();
         List<List<List<int>>> listaGlobal = new List<List<List<int>>>();
 
+        List<String> listaComprobacion = new List<string>();
+
 
 
 
@@ -199,17 +201,16 @@ namespace Proyecto3Lenguajes
 
         private void consultarBoton_Click(object sender, EventArgs e)
         {
+            listaComprobacion.Clear();
             listaGlobal.Clear();
             int nSize = int.Parse(sizeN.Text);
+
+            //AQUI EN ESTE FOR SE OBTIENEN TODOS LOS PARES ORDENADOS DE LA MATRIZ.
             for (int iMatriz = 0; iMatriz < nSize; iMatriz++)
             {
-                //AQUI EN ESTE FOR SE OBTIENEN TODOS LOS PARES ORDENADOS DE LA MATRIZ.
                 for (int jMatriz = 0; jMatriz < nSize; jMatriz++)
                 {
                     String resultado = funcionConsulta(iMatriz.ToString(),jMatriz.ToString());
-
-                    //Console.WriteLine(resultado);
-                    
                     if (resultado != "" && resultado != "[]")
                     {
                         string nuevo = resultado.Remove(0, 1);
@@ -234,31 +235,8 @@ namespace Proyecto3Lenguajes
                                 }
                             }
                         }
+                        listaGlobal.Add(listaTemporal);
 
-                        if (!listaGlobal.Contains(listaTemporal))
-                        {
-                            Console.WriteLine("entra al contains");
-                            listaGlobal.Add(listaTemporal);
-                        }
-                        
-                        
-
-                        /*
-                        for (int i2 = 0; i2 < listaGlobal.Count; i2++)
-                        {
-                            Console.WriteLine("Este es el grupo -> " + i2);
-                            for (int j2 = 0; j2 < listaGlobal[i2].Count; j2++)
-                            {
-                                Console.WriteLine("");
-                                for (int q2 = 0; q2 < listaGlobal[i2][j2].Count; q2++)
-                                {
-                                    Console.Write(listaGlobal[i2][j2][q2]);
-                                }
-                            }
-                        }
-                        */
-
-                        //Console.WriteLine("");
                     }
                     else if (resultado == "[]")
                     {
@@ -270,12 +248,7 @@ namespace Proyecto3Lenguajes
                         subListaAAgregar.Add(jMatriz);
 
                         listaTemporal.Add(subListaAAgregar);
-
-                        if (!listaGlobal.Contains(listaTemporal))
-                        {
-                            Console.WriteLine("entra al contains2");
-                            listaGlobal.Add(listaTemporal);
-                        }
+                        listaGlobal.Add(listaTemporal);
 
                     }
                     else
@@ -283,45 +256,12 @@ namespace Proyecto3Lenguajes
                         //Console.WriteLine("no existe el punto");
                     }
                 }
-            
-            }
-
-            /*
-            for (int i2 = 0; i2 < listaGlobal.Count; i2++)
-            {
-                Console.WriteLine("Este es el grupo -> " + i2);
-                for (int j2 = 0; j2 < listaGlobal[i2].Count; j2++)
-                {
-                    Console.WriteLine("");
-                    for (int q2 = 0; q2 < listaGlobal[i2][j2].Count; q2++)
-                    {
-                        Console.Write(listaGlobal[i2][j2][q2]);
-                    }
-                }
-            }
-            */
-
-            /*
-            for (int q = 0; q < listaGlobal.Count; q++)
-            {
-                for (int j = 0; j < listaGlobal.Count; j++)
-                {
-                    if (listaGlobal[q].SequenceEqual(listaGlobal[j]))
-                    {
-                        Console.WriteLine("entroooo");
-                        listaGlobal.RemoveAt(j);
-                    }
-                }
+                    
             }
             
-            */
-
-
-
-
-
-
         }
+
+        
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -364,9 +304,6 @@ namespace Proyecto3Lenguajes
         private void button3_Click(object sender, EventArgs e)
         {
             Console.WriteLine(listaGlobal.Count);
-            Console.WriteLine(listaGlobal[0].Count);
-            Console.WriteLine(listaGlobal[0].Count);
-
         }
     }
 }
