@@ -161,7 +161,7 @@ namespace Proyecto3Lenguajes
                 if (cell.Value.ToString().Contains("x"))
                 {
                     string resultado = funcionConsulta(e.ColumnIndex.ToString(), e.RowIndex.ToString());
-                    Console.WriteLine(resultado);
+                    //Console.WriteLine(resultado);
 
                     if (resultado != "" && resultado != "[]")
                     {
@@ -369,7 +369,22 @@ namespace Proyecto3Lenguajes
                 }
                     
             }
-            
+            comboBox1.Items.Clear();
+            foreach (List<List<int>> var1 in listaGlobal)
+            {
+                //Console.WriteLine("-----Grupo-----");
+                comboBox1.Items.Add("-----Grupo-----");
+                foreach (List<int> var2 in var1)
+                {
+                    comboBox1.Items.Add(var2[0].ToString()+","+var2[1].ToString());
+                    foreach (int numero in var2)
+                    {
+                        //Console.Write(numero);
+                    }
+                }
+            }
+            Console.WriteLine("");
+
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -450,5 +465,59 @@ namespace Proyecto3Lenguajes
             }
         }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            List<List<int>> listaTemporal = new List<List<int>>();
+
+            String parOrdenado = comboBox1.Text.ToString();
+            String [] split = parOrdenado.Split(',');
+            String resultado = funcionConsulta(split[0],split[1]);
+
+            if (resultado != "" && resultado != "[]")
+            {
+                for (int i = 0; i < resultado.Length; i++)
+                {
+                    if (resultado[i].Equals(','))
+                    {
+                        if (char.IsDigit(resultado[i - 1]) && char.IsDigit(resultado[i + 1]))
+                        {
+                            List<int> subListaAAgregar = new List<int>();
+                            int x = (int)Char.GetNumericValue(resultado[i - 1]);
+                            int y = (int)Char.GetNumericValue(resultado[i + 1]);
+                            subListaAAgregar.Add(x);
+                            subListaAAgregar.Add(y);
+                            listaTemporal.Add(subListaAAgregar);
+                        }
+                    }
+                }
+                Random random = new Random();
+
+                int r = random.Next(0, 256);
+                int g = random.Next(0, 256);
+                int b = random.Next(0, 256);
+
+                for (int i = 0; i < listaTemporal.Count; i++)
+                {
+
+
+                    dataGridView1.Rows[listaTemporal[i][1]].Cells[listaTemporal[i][0]].Style.BackColor = System.Drawing.Color.FromArgb(r, g, b);
+
+                }
+                dataGridView1.ClearSelection();
+            }
+            else if (resultado == "[]")
+            {
+                Random random = new Random();
+
+                int r = random.Next(0, 256);
+                int g = random.Next(0, 256);
+                int b = random.Next(0, 256);
+
+                int x = (int)Char.GetNumericValue(char.Parse(split[0]));
+                int y = (int)Char.GetNumericValue(char.Parse(split[1]));
+
+                dataGridView1.Rows[y].Cells[x].Style.BackColor = System.Drawing.Color.FromArgb(r, g, b);
+            }
+        }
     }
 }
